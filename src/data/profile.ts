@@ -15,13 +15,13 @@ const yearsLabel = getYearsExperienceLabel()
 
 export const profile = {
   name: 'Ahmad Zuliansyah Putra',
-  role: 'Senior Full Stack Engineer',
+  role: 'Senior Full Stack Developer',
   roleDetail: 'Technical Lead · React.js · Node.js · TypeScript',
   tagline:
     'Delivering SaaS products, enterprise applications & mission-critical systems for global teams.',
   email: 'ahmadzp102@gmail.com',
   phone: '+62 813 8206 2349',
-  bio: `Senior Full Stack Engineer with ${yearsLabel} years of experience delivering SaaS products, enterprise applications, and mission-critical systems across healthcare, education, logistics, industrial, and public sectors — since March ${CAREER_START.year}.
+  bio: `Senior Full Stack Developer with ${yearsLabel} years of experience delivering SaaS products, enterprise applications, and mission-critical systems across healthcare, education, logistics, industrial, and public sectors — since March ${CAREER_START.year}.
 
 Experienced in leading cross-functional teams, recovering delayed projects, and delivering scalable software from planning through production. Strong in React.js, Node.js, TypeScript, API development, system architecture, and remote collaboration across Australia, the United States, Vietnam, and Indonesia.`,
   location: 'Indonesia · Remote',

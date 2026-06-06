@@ -54,7 +54,7 @@ export function Contact() {
         </h2>
 
         <p className="contact__desc">
-          Looking for a senior full stack engineer or technical lead for SaaS, enterprise,
+          Looking for a senior full stack developer or technical lead for SaaS, enterprise,
           or mission-critical products? Let&apos;s talk.
         </p>
 

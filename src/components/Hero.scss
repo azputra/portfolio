@@ -76,6 +76,9 @@
   }
 
   &__name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     font-family: $font-display;
     font-size: clamp(2.8rem, 7.5vw, 5.5rem);
     font-weight: 900;
@@ -87,6 +90,9 @@
 
   &__name-line {
     display: block;
+    padding: 0;
+    margin: 0;
+    text-align: left;
 
     &--accent {
       color: $accent-warm;
@@ -312,9 +318,14 @@
 
     &__name-line {
       display: block;
+      width: 100%;
+      padding: 0;
+      margin: 0;
 
       &--accent {
-        @include mobile-gradient-text;
+        color: $accent-warm;
+        -webkit-text-fill-color: currentColor;
+        background: none;
       }
     }
 
