@@ -91,6 +91,10 @@
     &--accent {
       color: inherit;
     }
+
+    & + & {
+      margin-left: 0.28em;
+    }
   }
 
   &__role-detail {
