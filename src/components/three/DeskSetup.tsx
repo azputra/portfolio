@@ -92,27 +92,29 @@ function MonitorUnit({
   variant: 'main' | 'side'
   scrollSpeed?: number
 }) {
-  const bezelW = screenW + 0.04
   const bezelH = screenH + 0.035
   const standH = 0.09
   const baseH = 0.012
   const footOnDeskY = DESK_SURFACE_Y + bezelH / 2 + standH + baseH / 2 + 0.001
 
+  const monitorMat = { color: MONITOR, roughness: 0.3, metalness: 0.3 }
+
   return (
     <group position={[x, footOnDeskY, z]} rotation={[0, rotY, 0]}>
       <mesh castShadow>
-        <boxGeometry args={[bezelW, bezelH, 0.035]} />
-        <meshStandardMaterial color={MONITOR} roughness={0.3} metalness={0.3} />
+        <boxGeometry args={[screenW + 0.04, bezelH, 0.035]} />
+        <meshStandardMaterial {...monitorMat} />
       </mesh>
-      <group position={[0, 0, 0.022]} renderOrder={2}>
+      <group position={[0, 0, 0.022]}>
         <CodeScreen width={screenW} height={screenH} variant={variant} scrollSpeed={scrollSpeed} />
       </group>
+
       <mesh position={[0, -bezelH / 2 - standH / 2, 0]}>
         <cylinderGeometry args={[0.022, 0.03, standH, 12]} />
         <meshStandardMaterial color={MONITOR} roughness={0.5} />
       </mesh>
       <mesh position={[0, -bezelH / 2 - standH - baseH / 2, 0.025]} rotation={[0.08, 0, 0]}>
-        <boxGeometry args={[Math.min(screenW * 0.42, 0.2), baseH, 0.08]} />
+        <boxGeometry args={[Math.min(screenW * 0.5, 0.26), baseH, 0.08]} />
         <meshStandardMaterial color={MONITOR} roughness={0.5} />
       </mesh>
     </group>
@@ -140,20 +142,20 @@ export function DeskSetup() {
       <DeskFrame />
 
       <MonitorUnit
-        x={-0.44}
+        x={-0.3}
         z={-0.08}
-        rotY={-0.03}
-        screenW={0.56}
-        screenH={0.34}
+        rotY={0.05}
+        screenW={0.68}
+        screenH={0.36}
         variant="main"
         scrollSpeed={10}
       />
       <MonitorUnit
-        x={0.44}
+        x={0.46}
         z={-0.08}
-        rotY={0.03}
-        screenW={0.56}
-        screenH={0.34}
+        rotY={0.04}
+        screenW={0.48}
+        screenH={0.3}
         variant="side"
         scrollSpeed={6}
       />

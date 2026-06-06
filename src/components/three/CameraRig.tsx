@@ -27,15 +27,13 @@ type CameraRigProps = {
 export function CameraRig({ mouse, scroll }: CameraRigProps) {
   const { camera } = useThree()
   const smooth = useSmoothPointer(mouse, 3.5)
-  const smoothHero = useRef(0)
   const lookAt = useRef(INTRO_LOOK.clone())
 
   useFrame((_, delta) => {
     const mx = smooth.current.x
     const my = smooth.current.y
-    smoothHero.current = dampBlend(smoothHero.current, scroll.current.hero, 2, delta)
-    const h = smoothHero.current
-    const exitT = easeInOutCubic(getExitProgress(h, scroll.current.about))
+    const h = scroll.current.smoothHero
+    const exitT = easeInOutCubic(getExitProgress(h, scroll.current.smoothAbout))
 
     const walkT = smootherstep(0.16, 0.42, h)
     const deskT = smootherstep(0, 0.16, h)

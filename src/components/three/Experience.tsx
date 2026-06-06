@@ -6,7 +6,7 @@ import type { PortfolioScroll } from '../../hooks/usePortfolioScroll'
 import { SCENE_PALETTES } from '../../theme/scenePalette'
 import { AvatarModel, CHARACTER_X } from './AvatarModel'
 import { CameraRig } from './CameraRig'
-import { DeskFade, ScrollSceneRig } from './ScrollSceneRig'
+import { ScrollSceneRig } from './ScrollSceneRig'
 import { DeskSetup, WORKSPACE_Y_ROT } from './DeskSetup'
 import { ExitDoor } from './ExitDoor'
 import { RoomInterior } from './RoomInterior'
@@ -72,15 +72,15 @@ function MonitorGlow() {
     <group position={[CHARACTER_X, 0, 0]} rotation={[0, WORKSPACE_Y_ROT, 0]}>
       <pointLight
         ref={main}
-        position={[-0.44, 0.92, -0.06]}
+        position={[-0.3, 0.92, -0.06]}
         color="#7ec8ff"
         intensity={0.55}
-        distance={1.8}
+        distance={1.9}
         decay={2}
       />
       <pointLight
         ref={side}
-        position={[0.44, 0.92, -0.06]}
+        position={[0.46, 0.9, -0.06]}
         color="#6ee7b7"
         intensity={0.4}
         distance={1.6}
@@ -113,9 +113,7 @@ function Scene({ mouse, introReady, scroll }: ExperienceProps) {
 
       <WorkspaceRig mouse={mouse} scroll={scroll}>
         <group position={[CHARACTER_X, 0, 0]} rotation={[0, WORKSPACE_Y_ROT, 0]}>
-          <DeskFade scroll={scroll}>
-            <DeskSetup />
-          </DeskFade>
+          <DeskSetup />
           <Suspense fallback={<StylizedAvatar mouse={mouse} atDesk localOrigin />}>
             <AvatarModel mouse={mouse} introReady={introReady} scroll={scroll} />
           </Suspense>

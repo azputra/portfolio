@@ -5,8 +5,8 @@ import * as THREE from 'three'
 import { SkeletonUtils } from 'three-stdlib'
 import type { PortfolioScroll } from '../../hooks/usePortfolioScroll'
 import { AVATAR_POS } from './DeskSetup'
-import { dampBlend, easeInOutCubic } from './motion'
-import { getExitPosition } from './exitPath'
+import { dampBlend, easeInOutCubic, smootherstep } from './motion'
+import { getExitPosition, hasPassedDoor } from './exitPath'
 import { ABOUT_REVEAL, getExitProgress } from './scrollProgress'
 import { useSmoothPointer } from './useSmoothPointer'
 
@@ -28,8 +28,6 @@ const WALK_FACE_RIGHT = WALK_ROT_Y + Math.PI
 const WALK_FACE_LEFT = WALK_ROT_Y
 const DANCE_DURATION = 1.6
 const TURN_DURATION = 0.7
-const DOOR_VANISH_AT = 0.76
-
 const DESK_END = 0.08
 
 type AvatarModelProps = {
@@ -167,7 +165,8 @@ export function AvatarModel({ mouse, introReady, scroll }: AvatarModelProps) {
   const phase = useRef<IntroPhase>('waiting')
   const phaseStart = useRef(0)
   const smooth = useSmoothPointer(mouse, 5)
-  const smoothHero = useRef(0)
+  const smoothExit = useRef(0)
+  const hideBlend = useRef(0)
   const blend = useRef<BlendWeights>({ dance: 1, casual: 0, walk: 0 })
   const activeLayer = useRef<BlendKey>('dance')
   const turnProgress = useRef(0)
@@ -192,8 +191,7 @@ export function AvatarModel({ mouse, introReady, scroll }: AvatarModelProps) {
   useFrame((_, delta) => {
     if (!rig.current) return
 
-    smoothHero.current = dampBlend(smoothHero.current, scroll.current.hero, 2.2, delta)
-    const hero = smoothHero.current
+    const hero = scroll.current.smoothHero
     const now = performance.now()
     const elapsed = (now - phaseStart.current) / 1000
     const mx = smooth.current.x
@@ -202,34 +200,24 @@ export function AvatarModel({ mouse, introReady, scroll }: AvatarModelProps) {
     let targetBlend: BlendWeights = { dance: 0, casual: 1, walk: 0 }
 
     if (hero >= DESK_END) {
-      const about = scroll.current.about
-      const exitProgress = getExitProgress(hero, about)
-      const isExitPhase = exitProgress > 0.001
-      const exitDelta = exitProgress - prevExitProgress.current
-      if (exitDelta > 0.0004) walkFacing.current = 'right'
-      else if (exitDelta < -0.0004) walkFacing.current = 'left'
-      prevExitProgress.current = exitProgress
+      const exitTarget = getExitProgress(hero, scroll.current.smoothAbout)
+      smoothExit.current = dampBlend(smoothExit.current, exitTarget, 5.5, delta)
 
-      if (isExitPhase) {
-        const walkRot = walkFacing.current === 'left' ? WALK_FACE_LEFT : WALK_FACE_RIGHT
+      const exitDelta = smoothExit.current - prevExitProgress.current
+      if (exitDelta > 0.0012) walkFacing.current = 'right'
+      else if (exitDelta < -0.0012) walkFacing.current = 'left'
+      prevExitProgress.current = smoothExit.current
 
-        targetBlend = { dance: 0, casual: 0, walk: 1 }
-        casualTimeScale.current = 0
-        walkTimeScale.current = 1.4
+      const walkWeight = smootherstep(0.02, 0.14, smoothExit.current)
+      const atDesk = smoothExit.current < 0.018
 
-        rig.current.visible = exitProgress < DOOR_VANISH_AT
-        rig.current.rotation.y = dampBlend(rig.current.rotation.y, walkRot, 6, delta)
-        rig.current.rotation.x = dampBlend(rig.current.rotation.x, 0, 4, delta)
-        const exitPos = getExitPosition(exitProgress, homeX, homeZ)
-        rig.current.position.x = dampBlend(rig.current.position.x, exitPos.x, 5.5, delta)
-        rig.current.position.y = 0
-        rig.current.position.z = dampBlend(rig.current.position.z, exitPos.z, 5.5, delta)
-      } else {
-        targetBlend = { dance: 0, casual: 1, walk: 0 }
-        casualTimeScale.current = 0
-        walkTimeScale.current = 0
+      targetBlend = { dance: 0, casual: 1 - walkWeight, walk: walkWeight }
+      casualTimeScale.current = 0
+      walkTimeScale.current = walkWeight > 0.08 ? 1.35 : 0
 
-        rig.current.visible = true
+      const exitPos = getExitPosition(smoothExit.current, homeX, homeZ)
+
+      if (atDesk) {
         rig.current.rotation.y = dampBlend(
           rig.current.rotation.y,
           CODING_ROT_Y + mx * 0.08,
@@ -238,13 +226,31 @@ export function AvatarModel({ mouse, introReady, scroll }: AvatarModelProps) {
         )
         rig.current.rotation.x = dampBlend(rig.current.rotation.x, 0.03 + my * 0.01, 4, delta)
         rig.current.rotation.z = dampBlend(rig.current.rotation.z, 0, 4, delta)
-        rig.current.position.x = dampBlend(rig.current.position.x, homeX, 4, delta)
-        rig.current.position.y = dampBlend(rig.current.position.y, 0, 4, delta)
-        rig.current.position.z = dampBlend(rig.current.position.z, homeZ, 4, delta)
+        rig.current.position.x = dampBlend(rig.current.position.x, homeX, 4.5, delta)
+        rig.current.position.y = 0
+        rig.current.position.z = dampBlend(rig.current.position.z, homeZ, 4.5, delta)
+        hideBlend.current = dampBlend(hideBlend.current, 0, 8, delta)
+      } else {
+        const walkRot = walkFacing.current === 'left' ? WALK_FACE_LEFT : WALK_FACE_RIGHT
+        rig.current.rotation.y = dampBlend(rig.current.rotation.y, walkRot, 5, delta)
+        rig.current.rotation.x = dampBlend(rig.current.rotation.x, 0, 4, delta)
+        rig.current.rotation.z = dampBlend(rig.current.rotation.z, 0, 4, delta)
+        rig.current.position.x = dampBlend(rig.current.position.x, exitPos.x, 6, delta)
+        rig.current.position.y = 0
+        rig.current.position.z = dampBlend(rig.current.position.z, exitPos.z, 6, delta)
+        hideBlend.current = dampBlend(
+          hideBlend.current,
+          hasPassedDoor(rig.current.position.x) ? 1 : 0,
+          7,
+          delta,
+        )
       }
+
+      rig.current.visible = hideBlend.current < 0.55
 
       if (hero < ABOUT_REVEAL) {
         prevExitProgress.current = 0
+        smoothExit.current = dampBlend(smoothExit.current, 0, 8, delta)
       }
     } else if (phase.current === 'waiting') {
       rig.current.visible = true

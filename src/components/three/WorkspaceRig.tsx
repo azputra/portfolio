@@ -14,13 +14,10 @@ type WorkspaceRigProps = {
 export function WorkspaceRig({ mouse, scroll, children }: WorkspaceRigProps) {
   const group = useRef<THREE.Group>(null)
   const smooth = useSmoothPointer(mouse, 4)
-  const smoothHero = useRef(0)
-
   useFrame((state, delta) => {
     if (!group.current) return
 
-    smoothHero.current = dampBlend(smoothHero.current, scroll.current.hero, 2, delta)
-    const codingFocus = 1 - Math.min(1, smoothHero.current * 2.5)
+    const codingFocus = 1 - Math.min(1, scroll.current.smoothHero * 2.5)
     const t = state.clock.elapsedTime
     const mx = smooth.current.x
     const my = smooth.current.y

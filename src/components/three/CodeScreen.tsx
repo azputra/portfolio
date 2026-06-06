@@ -768,11 +768,34 @@ function drawCode(
   }
 }
 
+function createCurvedScreenGeometry(width: number, height: number, arc: number, inset = 0.018) {
+  const segments = 48
+  const radius = width / arc
+  const innerR = radius - inset
+  const geo = new THREE.PlaneGeometry(width, height, segments, 1)
+  const pos = geo.attributes.position
+  const halfW = width / 2
+
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i)
+    const y = pos.getY(i)
+    const angle = (x / halfW) * (arc / 2)
+    pos.setX(i, Math.sin(angle) * innerR)
+    pos.setZ(i, Math.cos(angle) * innerR)
+    pos.setY(i, y)
+  }
+
+  geo.computeVertexNormals()
+  return { geometry: geo, innerR }
+}
+
 type CodeScreenProps = {
   width?: number
   height?: number
   variant?: 'main' | 'side'
   scrollSpeed?: number
+  curved?: boolean
+  curveArc?: number
 }
 
 export function CodeScreen({
@@ -780,14 +803,17 @@ export function CodeScreen({
   height = 0.39,
   variant = 'main',
   scrollSpeed = 12,
+  curved = false,
+  curveArc = 0.48,
 }: CodeScreenProps) {
   const { showSideWebsite } = useDeskInteraction()
   const { isDark } = useTheme()
   const showWebsite = variant === 'side' && showSideWebsite
   const lines = variant === 'main' ? CODE_MAIN : CODE_SIDE
-  const fontSize = variant === 'main' ? 15 : 13
-  const canvasW = variant === 'main' ? 800 : 800
-  const canvasH = variant === 'main' ? 450 : 450
+  const isPortrait = height > width
+  const fontSize = variant === 'main' ? 15 : isPortrait ? 12 : 13
+  const canvasW = isPortrait ? 450 : 800
+  const canvasH = isPortrait ? 800 : 450
 
   const canvas = useMemo(() => {
     const c = document.createElement('canvas')
@@ -804,6 +830,11 @@ export function CodeScreen({
     t.colorSpace = THREE.SRGBColorSpace
     return t
   }, [canvas])
+
+  const screenGeometry = useMemo(() => {
+    if (!curved) return null
+    return createCurvedScreenGeometry(width, height, curveArc)
+  }, [curved, width, height, curveArc])
 
   const scroll = useRef(0)
   const blink = useRef(true)
@@ -835,10 +866,20 @@ export function CodeScreen({
     texture.needsUpdate = true
   })
 
+  const screenMat = <meshBasicMaterial map={texture} toneMapped={false} />
+
+  if (curved && screenGeometry) {
+    return (
+      <mesh position={[0, 0, 0.016]} renderOrder={3} geometry={screenGeometry.geometry}>
+        {screenMat}
+      </mesh>
+    )
+  }
+
   return (
     <mesh position={[0, 0, 0.014]} renderOrder={3}>
       <planeGeometry args={[width, height]} />
-      <meshBasicMaterial map={texture} toneMapped={false} />
+      {screenMat}
     </mesh>
   )
 }
