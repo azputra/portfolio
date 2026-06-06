@@ -86,14 +86,10 @@
   }
 
   &__name-line {
-    display: inline;
+    display: block;
 
     &--accent {
-      color: inherit;
-    }
-
-    & + & {
-      margin-left: 0.28em;
+      color: $accent-warm;
     }
   }
 

@@ -9,8 +9,6 @@ type HeroProps = {
 }
 
 const nameParts = profile.name.split(' ')
-const nameLinePrimary = nameParts.slice(0, 2).join(' ')
-const nameLineAccent = nameParts.slice(2).join(' ')
 
 export function Hero({ scroll }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null)
@@ -99,8 +97,16 @@ export function Hero({ scroll }: HeroProps) {
           </div>
 
           <h1 className="hero__name">
-            <span className="hero__name-line">{nameLinePrimary}</span>
-            <span className="hero__name-line hero__name-line--accent">{nameLineAccent}</span>
+            {nameParts.map((part, index) => (
+              <span
+                key={part}
+                className={`hero__name-line${
+                  index === nameParts.length - 1 ? ' hero__name-line--accent' : ''
+                }`}
+              >
+                {part}
+              </span>
+            ))}
           </h1>
 
           <div className="hero__role-badge">
