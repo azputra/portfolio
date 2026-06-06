@@ -107,12 +107,28 @@ body {
 
 @media (max-width: 767px) {
   .site-main {
-    pointer-events: auto;
+    pointer-events: none;
     touch-action: pan-y;
   }
 
+  // Sticky hero stage must not block taps on sections scrolling underneath
+  .site-main > *:not(.hero) {
+    pointer-events: auto;
+  }
+
+  .site-main a,
+  .site-main button,
+  .site-main input,
+  .site-main textarea,
+  .site-main select,
+  .site-main [role='button'],
+  .site-main .projects__nav button {
+    pointer-events: auto;
+    touch-action: manipulation;
+  }
+
   .scene-layer--ready {
-    pointer-events: none;
+    pointer-events: auto;
   }
 }
 

@@ -201,12 +201,19 @@
 
 @media (max-width: 767px) {
   .hero {
-    height: 210vh;
+    height: 180vh;
+    pointer-events: none;
 
     &__stage {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      pointer-events: none;
+    }
+
+    &__content,
+    &__about-reveal {
+      pointer-events: auto;
     }
 
     &__stage::before {

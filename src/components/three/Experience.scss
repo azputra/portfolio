@@ -13,7 +13,8 @@
 
 @media (max-width: 767px) {
   .experience canvas {
-    pointer-events: none;
+    pointer-events: auto;
     cursor: default;
+    touch-action: manipulation;
   }
 }

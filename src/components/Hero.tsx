@@ -57,7 +57,9 @@ export function Hero({ scroll }: HeroProps) {
       if (contentRef.current) {
         const opacity = h < 0.12 ? 1 : Math.max(0, 1 - (h - 0.12) / 0.14)
         contentRef.current.style.opacity = String(opacity)
-        contentRef.current.style.pointerEvents = opacity > 0.3 ? 'none' : 'none'
+        const isMobile = window.innerWidth < 768
+        contentRef.current.style.pointerEvents =
+          isMobile && opacity > 0.15 ? 'auto' : 'none'
       }
 
       if (aboutRef.current) {

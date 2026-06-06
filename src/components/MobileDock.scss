@@ -45,6 +45,8 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: $text-muted;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition:
       background 0.25s ease,
       color 0.25s ease,

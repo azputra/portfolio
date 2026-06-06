@@ -145,6 +145,8 @@
     background: color-mix(in srgb, $surface 70%, transparent);
     cursor: pointer;
     flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: border-color 0.25s, background 0.25s;
 
     @media (min-width: $bp-tablet) {
@@ -246,6 +248,8 @@
       gap: 1rem;
       padding: 0.85rem 0;
       border-bottom: 1px solid $border;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
       transition: padding-left 0.25s ease, border-color 0.25s ease;
 
       &:active {
