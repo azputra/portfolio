@@ -58,4 +58,8 @@
     color: $accent-warm;
     margin-bottom: 0.85rem;
   }
+
+  @media (max-width: 767px) {
+    padding: $section-padding-mobile 1.25rem;
+  }
 }

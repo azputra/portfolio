@@ -105,6 +105,22 @@ body {
   }
 }
 
+@media (max-width: 767px) {
+  .site-main {
+    pointer-events: auto;
+    touch-action: pan-y;
+  }
+
+  .scene-layer--ready {
+    pointer-events: none;
+  }
+}
+
+body.nav-menu-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -2,20 +2,24 @@
 
 .contact {
   padding: $section-padding clamp(1.5rem, 4vw, 3rem);
-  background:
-    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(26, 43, 74, 0.05), transparent 60%),
-    linear-gradient(
-      to right,
-      $bg-elevated 0%,
-      $bg-elevated 48%,
-      color-mix(in srgb, $bg-elevated 88%, transparent) 58%,
-      color-mix(in srgb, $bg-elevated 45%, transparent) 72%,
-      transparent 92%
-    );
+  background: $bg-elevated;
   border-top: 1px solid $border;
   min-height: 80vh;
   display: flex;
   align-items: center;
+
+  @media (min-width: $bp-tablet) {
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 80%, rgba(26, 43, 74, 0.05), transparent 60%),
+      linear-gradient(
+        to right,
+        $bg-elevated 0%,
+        $bg-elevated 48%,
+        color-mix(in srgb, $bg-elevated 88%, transparent) 58%,
+        color-mix(in srgb, $bg-elevated 45%, transparent) 72%,
+        transparent 92%
+      );
+  }
 
   &__inner {
     max-width: $max-width;
@@ -113,6 +117,33 @@
         opacity: 1;
         transform: translate(0, 0);
       }
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: $section-padding-mobile 1.25rem;
+    min-height: auto;
+    padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+
+    &__links {
+      margin-bottom: 2.5rem;
+    }
+
+    &__link {
+      font-size: clamp(1.25rem, 6vw, 1.75rem);
+      padding: 1rem 0;
+    }
+
+    &__email {
+      width: 100%;
+      justify-content: center;
+      font-size: 0.88rem;
+      word-break: break-all;
+    }
+
+    &__footer {
+      flex-direction: column;
+      gap: 0.35rem;
     }
   }
 

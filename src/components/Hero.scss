@@ -152,14 +152,48 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hero {
-    height: 240vh;
+    height: 220vh;
+
+    &__stage::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        180deg,
+        color-mix(in srgb, $bg 94%, transparent) 0%,
+        color-mix(in srgb, $bg 82%, transparent) 45%,
+        color-mix(in srgb, $bg 55%, transparent) 100%
+      );
+    }
 
     &__content,
     &__about-reveal {
+      z-index: 2;
       max-width: 100%;
-      padding-top: calc($nav-height + 1.5rem);
+      padding: calc($nav-height + env(safe-area-inset-top, 0px) + 1.25rem) 1.25rem 2rem;
+    }
+
+    &__name {
+      font-size: clamp(2.2rem, 11vw, 3rem);
+    }
+
+    &__role-detail {
+      font-size: 0.62rem;
+      line-height: 1.45;
+    }
+
+    &__tagline {
+      font-size: 0.92rem;
+      max-width: 100%;
+    }
+
+    &__about-text {
+      font-size: 0.95rem;
+      max-width: 100%;
     }
 
     &__scroll {

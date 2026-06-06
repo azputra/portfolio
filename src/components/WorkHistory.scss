@@ -66,4 +66,12 @@
     color: $text-muted;
     max-width: 52ch;
   }
+
+  @media (max-width: 767px) {
+    padding: $section-padding-mobile 1.25rem;
+
+    &__item {
+      padding: 1.25rem 0;
+    }
+  }
 }

@@ -10,3 +10,10 @@
     cursor: default;
   }
 }
+
+@media (max-width: 767px) {
+  .experience canvas {
+    pointer-events: none;
+    cursor: default;
+  }
+}

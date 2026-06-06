@@ -39,3 +39,13 @@ html[data-theme='dark'] .scene-ring-cursor--active {
 .scene-layer--hoverable canvas {
   cursor: none;
 }
+
+@media (pointer: coarse), (max-width: 767px) {
+  .scene-ring-cursor {
+    display: none;
+  }
+
+  .scene-layer--hoverable canvas {
+    cursor: default;
+  }
+}

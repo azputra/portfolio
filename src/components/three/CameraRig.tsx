@@ -6,6 +6,9 @@ import { dampBlend, easeInOutCubic, smootherstep } from './motion'
 import { getExitProgress } from './scrollProgress'
 import { useSmoothPointer } from './useSmoothPointer'
 
+const MOBILE_POS_OFFSET = new THREE.Vector3(-0.85, 0.04, 0.55)
+const MOBILE_LOOK_OFFSET = new THREE.Vector3(-0.35, 0, 0)
+
 const INTRO_POS = new THREE.Vector3(2.65, 1.06, 5.25)
 const CODING_POS = new THREE.Vector3(2.5, 1.02, 4.85)
 const WALK_POS = new THREE.Vector3(3.05, 1.02, 4.15)
@@ -50,9 +53,14 @@ export function CameraRig({ mouse, scroll }: CameraRigProps) {
       targetPos.lerpVectors(INTRO_POS, CODING_POS, deskT)
     }
 
-    targetPos.x += mx * 0.22
-    targetPos.y += my * 0.09
-    targetPos.z += my * 0.07
+    const isMobile = window.innerWidth < 768
+    if (isMobile) {
+      targetPos.add(MOBILE_POS_OFFSET)
+    }
+
+    targetPos.x += mx * (isMobile ? 0.12 : 0.22)
+    targetPos.y += my * (isMobile ? 0.05 : 0.09)
+    targetPos.z += my * (isMobile ? 0.04 : 0.07)
 
     const posDamp = exitT > 0.001 ? 5 : 3
     camera.position.x = dampBlend(camera.position.x, targetPos.x, posDamp, delta)
@@ -70,8 +78,12 @@ export function CameraRig({ mouse, scroll }: CameraRigProps) {
     } else {
       targetLook.lerpVectors(INTRO_LOOK, WALK_LOOK, walkT)
     }
-    targetLook.x += mx * 0.06
-    targetLook.y += my * 0.04
+    if (isMobile) {
+      targetLook.add(MOBILE_LOOK_OFFSET)
+    }
+
+    targetLook.x += mx * (isMobile ? 0.03 : 0.06)
+    targetLook.y += my * (isMobile ? 0.02 : 0.04)
 
     const lookDamp = exitT > 0.001 ? 5 : 3.5
     lookAt.current.x = dampBlend(lookAt.current.x, targetLook.x, lookDamp, delta)

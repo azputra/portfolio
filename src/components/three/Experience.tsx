@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useTheme } from '../../context/ThemeContext'
@@ -125,16 +125,39 @@ function Scene({ mouse, introReady, scroll }: ExperienceProps) {
   )
 }
 
+function useCanvasDpr() {
+  const [dpr, setDpr] = useState<[number, number]>(() =>
+    typeof window !== 'undefined' && window.innerWidth < 768 ? [1, 1.5] : [1, 2],
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const update = () => setDpr(mq.matches ? [1, 1.5] : [1, 2])
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  return dpr
+}
+
 export function Experience({ mouse, introReady, scroll }: ExperienceProps) {
   const { theme } = useTheme()
   const initialBg = SCENE_PALETTES[theme].bg
+  const dpr = useCanvasDpr()
+  const isMobile = dpr[1] <= 1.5
 
   return (
     <div className="experience">
       <Canvas
-        shadows
-        camera={{ position: [2.75, 1.12, 5.4], fov: 36, near: 0.1, far: 50 }}
-        dpr={[1, 2]}
+        shadows={!isMobile}
+        camera={{
+          position: [2.75, 1.12, 5.4],
+          fov: isMobile ? 42 : 36,
+          near: 0.1,
+          far: 50,
+        }}
+        dpr={dpr}
         gl={{ antialias: true, alpha: false }}
         onCreated={({ gl, scene }) => {
           gl.setClearColor(initialBg)

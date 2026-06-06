@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useTheme } from '../context/ThemeContext'
 import './Navigation.scss'
@@ -13,6 +13,7 @@ const links = [
 export function Navigation() {
   const navRef = useRef<HTMLElement>(null)
   const { isDark, toggleTheme } = useTheme()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -28,11 +29,28 @@ export function Navigation() {
     return () => ctx.revert()
   }, [])
 
+  useEffect(() => {
+    document.body.classList.toggle('nav-menu-open', menuOpen)
+    return () => document.body.classList.remove('nav-menu-open')
+  }, [menuOpen])
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)')
+    const onChange = () => {
+      if (mq.matches) setMenuOpen(false)
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  const closeMenu = () => setMenuOpen(false)
+
   return (
-    <nav className="nav" ref={navRef}>
-      <a href="#home" className="nav__logo">
+    <nav className={`nav${menuOpen ? ' nav--open' : ''}`} ref={navRef}>
+      <a href="#home" className="nav__logo" onClick={closeMenu}>
         AZP
       </a>
+
       <ul className="nav__links">
         {links.map((link) => (
           <li key={link.href}>
@@ -40,6 +58,7 @@ export function Navigation() {
           </li>
         ))}
       </ul>
+
       <div className="nav__actions">
         <button
           type="button"
@@ -54,7 +73,42 @@ export function Navigation() {
         <a href="#contact" className="nav__cta">
           Hire me
         </a>
+        <button
+          type="button"
+          className="nav__toggle"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
+
+      <div className="nav__mobile-menu" aria-hidden={!menuOpen}>
+        <ul className="nav__mobile-links">
+          {links.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} onClick={closeMenu}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href="#contact" className="nav__mobile-cta" onClick={closeMenu}>
+          Hire me
+        </a>
+      </div>
+
+      {menuOpen && (
+        <button
+          type="button"
+          className="nav__overlay"
+          aria-label="Close menu"
+          onClick={closeMenu}
+        />
+      )}
     </nav>
   )
 }
