@@ -5,7 +5,7 @@ import { useSceneHover } from '../../context/SceneHoverContext'
 import * as THREE from 'three'
 
 function formatDate(now: Date) {
-  return now.toLocaleDateString('id-ID', {
+  return now.toLocaleDateString('en-US', {
     weekday: 'short',
     day: 'numeric',
     month: 'short',
