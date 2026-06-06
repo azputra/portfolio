@@ -89,7 +89,16 @@ export function Contact() {
 
         <footer className="contact__footer">
           <span>© {new Date().getFullYear()} {profile.name}</span>
-          <span>Built with React + Three.js</span>
+          <span>
+            Built with React + Three.js ·{' '}
+            <a
+              href="https://cursor.com/referral?code=Y19PCLX43QLI"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Try Cursor
+            </a>
+          </span>
         </footer>
       </div>
     </section>

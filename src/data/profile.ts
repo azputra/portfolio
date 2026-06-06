@@ -32,6 +32,7 @@ Experienced in leading cross-functional teams, recovering delayed projects, and 
     { label: 'GitHub', url: 'https://github.com/azputra' },
     { label: 'Medium', url: 'https://medium.com/@azputra' },
     { label: 'YouTube', url: 'https://www.youtube.com/@azputra3658' },
+    { label: 'Cursor', url: 'https://cursor.com/referral?code=Y19PCLX43QLI' },
   ],
   languages: [
     { name: 'Indonesian', level: 'Native' },

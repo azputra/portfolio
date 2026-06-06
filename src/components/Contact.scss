@@ -125,5 +125,16 @@
     font-size: 0.7rem;
     color: $text-muted;
     letter-spacing: 0.05em;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $accent;
+      }
+    }
   }
 }
