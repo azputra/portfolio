@@ -123,27 +123,78 @@
   @media (max-width: 767px) {
     padding: $section-padding-mobile 1.25rem;
     min-height: auto;
-    padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
 
-    &__links {
-      margin-bottom: 2.5rem;
+    &__cta-text {
+      @include mobile-gradient-text;
+      margin-bottom: 1rem;
     }
 
-    &__link {
-      font-size: clamp(1.25rem, 6vw, 1.75rem);
-      padding: 1rem 0;
+    &__desc {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    &__actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
     }
 
     &__email {
       width: 100%;
       justify-content: center;
-      font-size: 0.88rem;
+      font-size: 0.82rem;
+      padding: 1rem 1.25rem;
       word-break: break-all;
+    }
+
+    &__phone {
+      text-align: center;
+      padding: 0.75rem;
+      @include mobile-glass-card;
+      border-radius: 14px;
+      font-size: 0.88rem;
+    }
+
+    &__links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem;
+      border-top: none;
+      margin-bottom: 2rem;
+    }
+
+    &__link {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 1rem;
+      padding: 1rem;
+      @include mobile-glass-card;
+      border-radius: 16px;
+      border-bottom: none;
+
+      svg {
+        opacity: 1;
+        transform: none;
+        align-self: flex-end;
+        margin-top: -1.25rem;
+      }
+
+      &:active {
+        transform: scale(0.98);
+        color: $accent;
+      }
     }
 
     &__footer {
       flex-direction: column;
       gap: 0.35rem;
+      text-align: center;
+      padding-top: 1rem;
+      border-top: 1px solid $border;
     }
   }
 

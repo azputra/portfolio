@@ -61,5 +61,23 @@
 
   @media (max-width: 767px) {
     padding: $section-padding-mobile 1.25rem;
+
+    &__header {
+      margin-bottom: 1.75rem;
+    }
+
+    &__card {
+      padding: 1.25rem;
+      @include mobile-glass-card;
+      border-radius: 18px;
+
+      h3 {
+        font-size: 1.05rem;
+      }
+
+      p {
+        font-size: 0.88rem;
+      }
+    }
   }
 }

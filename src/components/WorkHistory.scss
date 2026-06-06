@@ -70,8 +70,32 @@
   @media (max-width: 767px) {
     padding: $section-padding-mobile 1.25rem;
 
+    &__header {
+      margin-bottom: 1.75rem;
+    }
+
+    &__list {
+      gap: 0.65rem;
+    }
+
     &__item {
-      padding: 1.25rem 0;
+      padding: 1.15rem;
+      border: none;
+      border-bottom: none;
+      @include mobile-glass-card;
+      border-radius: 18px;
+
+      &:first-child {
+        border-top: none;
+      }
+    }
+
+    &__body h3 {
+      font-size: 1.05rem;
+    }
+
+    &__summary {
+      font-size: 0.88rem;
     }
   }
 }

@@ -14,6 +14,10 @@
     background: transparent;
   }
 
+  &__scene-peek {
+    display: none;
+  }
+
   &__content {
     position: absolute;
     z-index: 2;
@@ -23,6 +27,23 @@
     max-width: min(520px, 46vw);
     pointer-events: none;
     transition: opacity 0.1s linear;
+  }
+
+  &__top-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  &__avail {
+    display: none;
+  }
+
+  &__stats {
+    display: none;
+    list-style: none;
   }
 
   &__about-reveal {
@@ -51,7 +72,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: $accent-warm;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
 
   &__name {
@@ -62,6 +83,14 @@
     letter-spacing: -0.04em;
     margin-bottom: 1.25rem;
     color: $text;
+  }
+
+  &__name-line {
+    display: inline;
+
+    &--accent {
+      color: inherit;
+    }
   }
 
   &__role-detail {
@@ -100,6 +129,10 @@
     max-width: 400px;
     padding-left: 1rem;
     border-left: 2px solid rgba(26, 43, 74, 0.15);
+  }
+
+  &__scroll-mobile {
+    display: none;
   }
 
   &__scroll {
@@ -152,9 +185,29 @@
   }
 }
 
+@keyframes scroll-line-mobile {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.55);
+    transform-origin: top;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
 @media (max-width: 767px) {
   .hero {
-    height: 220vh;
+    height: 210vh;
+
+    &__stage {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
 
     &__stage::before {
       content: '';
@@ -162,42 +215,209 @@
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      background: linear-gradient(
-        180deg,
-        color-mix(in srgb, $bg 94%, transparent) 0%,
-        color-mix(in srgb, $bg 82%, transparent) 45%,
-        color-mix(in srgb, $bg 55%, transparent) 100%
-      );
+      background:
+        linear-gradient(
+          180deg,
+          transparent 0%,
+          transparent 28%,
+          color-mix(in srgb, $bg 15%, transparent) 50%,
+          color-mix(in srgb, $bg 70%, transparent) 78%,
+          color-mix(in srgb, $bg 94%, transparent) 100%
+        );
     }
 
-    &__content,
-    &__about-reveal {
+    &__scene-peek {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: absolute;
+      top: calc($nav-height + env(safe-area-inset-top, 0px) + 0.5rem);
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 2;
-      max-width: 100%;
-      padding: calc($nav-height + env(safe-area-inset-top, 0px) + 1.25rem) 1.25rem 2rem;
+      pointer-events: none;
+    }
+
+    &__scene-label {
+      font-family: $font-mono;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: $text-muted;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid $border;
+      border-radius: 100px;
+      background: color-mix(in srgb, $bg-elevated 70%, transparent);
+      backdrop-filter: blur(8px);
+    }
+
+    &__content {
+      position: relative;
+      top: auto;
+      left: auto;
+      z-index: 3;
+      width: calc(100% - 1.5rem);
+      max-width: none;
+      margin: 0 0.75rem 0.5rem;
+      padding: 1.35rem 1.25rem 1.5rem;
+      @include mobile-glass-card;
+      border-radius: 24px;
+    }
+
+    &__top-row {
+      margin-bottom: 0.85rem;
+    }
+
+    &__eyebrow {
+      margin-bottom: 0;
+    }
+
+    &__avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: $font-mono;
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: $accent-warm;
+      padding: 0.3rem 0.65rem;
+      border-radius: 100px;
+      border: 1px solid color-mix(in srgb, $accent-warm 35%, transparent);
+      background: color-mix(in srgb, $accent-warm 8%, transparent);
+
+      &::before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: $accent-warm;
+        box-shadow: 0 0 8px $accent-warm;
+        animation: avail-pulse 2s ease-in-out infinite;
+      }
     }
 
     &__name {
-      font-size: clamp(2.2rem, 11vw, 3rem);
+      font-size: clamp(2.4rem, 12vw, 3.2rem);
+      line-height: 0.92;
+      margin-bottom: 1rem;
+    }
+
+    &__name-line {
+      display: block;
+
+      &--accent {
+        @include mobile-gradient-text;
+      }
+    }
+
+    &__role-badge span {
+      font-size: 0.62rem;
+      padding: 0.45rem 1rem;
     }
 
     &__role-detail {
-      font-size: 0.62rem;
-      line-height: 1.45;
+      font-size: 0.6rem;
+      margin: -0.5rem 0 1rem;
     }
 
     &__tagline {
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       max-width: 100%;
+      padding-left: 0.75rem;
+      margin-bottom: 1.15rem;
+      border-left-color: color-mix(in srgb, $accent-warm 50%, transparent);
+    }
+
+    &__stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    &__stat {
+      text-align: center;
+      padding: 0.55rem 0.25rem;
+      border-radius: 12px;
+      background: color-mix(in srgb, $surface 80%, transparent);
+      border: 1px solid $border;
+
+      strong {
+        display: block;
+        font-family: $font-display;
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: $text;
+        line-height: 1.1;
+      }
+
+      span {
+        display: block;
+        font-family: $font-mono;
+        font-size: 0.5rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: $text-muted;
+        margin-top: 0.2rem;
+        line-height: 1.25;
+      }
+    }
+
+    &__about-reveal {
+      top: auto;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      right: 0.75rem;
+      max-width: none;
+      padding: 1.35rem 1.25rem;
+      @include mobile-glass-card;
     }
 
     &__about-text {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       max-width: 100%;
     }
 
     &__scroll {
       display: none;
     }
+
+    &__scroll-mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      position: absolute;
+      bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      pointer-events: none;
+
+      span {
+        font-family: $font-mono;
+        font-size: 0.55rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: $text-muted;
+      }
+    }
+
+    &__scroll-line {
+      width: 1px;
+      height: 28px;
+      background: linear-gradient(180deg, $accent, transparent);
+      animation: scroll-line-mobile 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes avail-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
   }
 }

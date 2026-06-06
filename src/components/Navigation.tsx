@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { profile } from '../data/profile'
 import { useTheme } from '../context/ThemeContext'
 import './Navigation.scss'
 
@@ -87,18 +88,40 @@ export function Navigation() {
       </div>
 
       <div className="nav__mobile-menu" aria-hidden={!menuOpen}>
+        <p className="nav__mobile-eyebrow">Navigation</p>
         <ul className="nav__mobile-links">
-          {links.map((link) => (
+          {links.map((link, i) => (
             <li key={link.href}>
               <a href={link.href} onClick={closeMenu}>
-                {link.label}
+                <span className="nav__mobile-num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="nav__mobile-label">{link.label}</span>
               </a>
             </li>
           ))}
         </ul>
-        <a href="#contact" className="nav__mobile-cta" onClick={closeMenu}>
-          Hire me
-        </a>
+
+        <div className="nav__mobile-footer">
+          <a href="#contact" className="nav__mobile-cta" onClick={closeMenu}>
+            Hire me
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
+          </a>
+
+          <div className="nav__mobile-socials">
+            {profile.socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                {social.label}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
 
       {menuOpen && (

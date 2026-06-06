@@ -161,6 +161,21 @@ img {
   color: $text;
 }
 
+@media (max-width: 767px) {
+  .section-title {
+    font-size: clamp(1.85rem, 8vw, 2.5rem);
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .site-main {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 .grain {
   pointer-events: none;
   position: fixed;

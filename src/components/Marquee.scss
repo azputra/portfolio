@@ -32,6 +32,22 @@
   }
 }
 
+@media (max-width: 767px) {
+  .marquee {
+    padding: 0.75rem 0;
+
+    &__item {
+      font-size: 0.68rem;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    &__track {
+      animation-duration: 24s;
+    }
+  }
+}
+
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);

@@ -32,3 +32,21 @@ $shadow-soft: var(--color-shadow-soft);
     );
   }
 }
+
+@mixin mobile-glass-card {
+  background: color-mix(in srgb, $bg-elevated 90%, transparent);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border: 1px solid $border;
+  border-radius: 22px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 color-mix(in srgb, #fff 40%, transparent);
+}
+
+@mixin mobile-gradient-text {
+  background: linear-gradient(135deg, $text 0%, $accent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

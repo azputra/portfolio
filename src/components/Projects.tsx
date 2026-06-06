@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 export function Projects() {
   const sectionRef = useRef<HTMLElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef(0)
   const [active, setActive] = useState(0)
 
   const goTo = useCallback((index: number) => {
@@ -56,6 +57,17 @@ export function Projects() {
 
   const project = projects[active]
 
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0]?.clientX ?? 0
+  }
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const endX = e.changedTouches[0]?.clientX ?? 0
+    const diff = endX - touchStartX.current
+    if (Math.abs(diff) < 48) return
+    goTo(active + (diff < 0 ? 1 : -1))
+  }
+
   return (
     <section id="work" className="projects" ref={sectionRef}>
       <div className="projects__inner">
@@ -82,7 +94,12 @@ export function Projects() {
             ))}
           </nav>
 
-          <div className="projects__panel" ref={panelRef}>
+          <div
+            className="projects__panel"
+            ref={panelRef}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <div className="projects__panel-top">
               <span className="projects__year">{project.year}</span>
               <div className="projects__arrows">
@@ -118,6 +135,20 @@ export function Projects() {
                 </svg>
               </a>
             )}
+
+            <div className="projects__dots" aria-hidden="true">
+              {projects.map((p, i) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  className={`projects__dot${i === active ? ' is-active' : ''}`}
+                  onClick={() => goTo(i)}
+                  aria-label={`Go to ${p.title}`}
+                />
+              ))}
+            </div>
+
+            <p className="projects__swipe-hint">Swipe to browse</p>
 
             <div className="projects__progress">
               <div

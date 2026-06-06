@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { profile } from '../data/profile'
+import { getYearsExperienceLabel, profile } from '../data/profile'
 import type { PortfolioScroll } from '../hooks/usePortfolioScroll'
 import './Hero.scss'
 
@@ -8,11 +8,16 @@ type HeroProps = {
   scroll: React.MutableRefObject<PortfolioScroll>
 }
 
+const nameParts = profile.name.split(' ')
+const firstName = nameParts[0]
+const lastName = nameParts.slice(1).join(' ')
+
 export function Hero({ scroll }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const aboutRef = useRef<HTMLDivElement>(null)
   const scrollHintRef = useRef<HTMLDivElement>(null)
+  const scrollMobileRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -30,6 +35,13 @@ export function Hero({ scroll }: HeroProps) {
         duration: 0.6,
         delay: 1,
         clearProps: 'opacity',
+      })
+      gsap.from('.hero__scroll-mobile', {
+        opacity: 0,
+        y: 10,
+        duration: 0.6,
+        delay: 1.1,
+        clearProps: 'opacity,transform',
       })
     }, sectionRef)
 
@@ -59,6 +71,11 @@ export function Hero({ scroll }: HeroProps) {
         scrollHintRef.current.style.opacity = String(opacity)
       }
 
+      if (scrollMobileRef.current) {
+        const opacity = h < 0.08 ? 1 : Math.max(0, 1 - (h - 0.08) / 0.1)
+        scrollMobileRef.current.style.opacity = String(opacity)
+      }
+
       raf = requestAnimationFrame(tick)
     }
 
@@ -69,20 +86,48 @@ export function Hero({ scroll }: HeroProps) {
   return (
     <section id="home" className="hero" ref={sectionRef}>
       <div className="hero__stage">
+        <div className="hero__scene-peek" aria-hidden="true">
+          <span className="hero__scene-label">3D Workspace</span>
+        </div>
+
         <div className="hero__content" ref={contentRef}>
-          <p className="hero__eyebrow">Portfolio · {new Date().getFullYear()}</p>
-          <h1 className="hero__name">{profile.name}</h1>
+          <div className="hero__top-row">
+            <p className="hero__eyebrow">Portfolio · {new Date().getFullYear()}</p>
+            <span className="hero__avail">{profile.availability}</span>
+          </div>
+
+          <h1 className="hero__name">
+            <span className="hero__name-line">{firstName}</span>
+            <span className="hero__name-line hero__name-line--accent">{lastName}</span>
+          </h1>
+
           <div className="hero__role-badge">
             <span>{profile.role}</span>
           </div>
           <p className="hero__role-detail">{profile.roleDetail}</p>
           <p className="hero__tagline">{profile.tagline}</p>
+
+          <ul className="hero__stats">
+            {profile.stats.map((stat) => (
+              <li key={stat.label} className="hero__stat">
+                <strong>
+                  {stat.label === 'Years experience' ? getYearsExperienceLabel() : stat.value}
+                </strong>
+                <span>{stat.label}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="hero__about-reveal" ref={aboutRef}>
           <p className="section-label">About</p>
           <h2 className="section-title">About me</h2>
           <p className="hero__about-text">{profile.bio.split('\n')[0].trim()}</p>
+        </div>
+
+        <div className="hero__scroll-mobile" ref={scrollMobileRef} aria-hidden="true">
+          <div className="hero__scroll-line" />
+          <span>Scroll to explore</span>
         </div>
 
         <div className="hero__scroll" ref={scrollHintRef} aria-hidden="true">

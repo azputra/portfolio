@@ -16,6 +16,7 @@ import { Services } from './components/Services'
 import { WorkHistory } from './components/WorkHistory'
 import { Projects } from './components/Projects'
 import { Contact } from './components/Contact'
+import { MobileDock } from './components/MobileDock'
 import { Experience, useSceneMouse } from './components/three/Experience'
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Experience mouse={mouse} introReady={loaded} scroll={scroll} />
       </div>
       <Navigation />
+      <MobileDock />
       <main className="site-main">
         <Hero scroll={scroll} />
         <Marquee />
