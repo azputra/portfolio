@@ -1,0 +1,95 @@
+@use '../styles/variables' as *;
+
+.loading {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #0f1218;
+  overflow: hidden;
+
+  &__curtain {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50.5%;
+    background: $accent;
+    z-index: 3;
+    will-change: transform;
+    pointer-events: none;
+
+    &--left {
+      left: 0;
+      transform: translateX(-100%);
+    }
+
+    &--right {
+      right: 0;
+      transform: translateX(100%);
+    }
+  }
+
+  &__hud {
+    position: absolute;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    bottom: clamp(2rem, 8vh, 4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0 1.5rem;
+    pointer-events: none;
+  }
+
+  &__eyebrow {
+    font-family: $font-mono;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $accent-warm;
+  }
+
+  &__percent {
+    font-family: $font-display;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    color: $text;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-shadow: 0 2px 24px rgba(232, 226, 216, 0.9);
+
+    &::after {
+      content: '%';
+      font-size: 0.45em;
+      color: $text-muted;
+      margin-left: 0.1em;
+    }
+  }
+
+  &__status {
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $text-muted;
+    min-height: 1.2em;
+    text-shadow: 0 1px 12px rgba(232, 226, 216, 0.85);
+  }
+
+  &__bar {
+    width: min(280px, 70vw);
+    height: 3px;
+    background: rgba(26, 43, 74, 0.12);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.25rem;
+  }
+
+  &__bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f0c060, #7ec8ff, #c084fc);
+    border-radius: 4px;
+    will-change: width;
+  }
+}

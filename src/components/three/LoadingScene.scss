@@ -1,0 +1,12 @@
+.loading-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #0f1218;
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    background: #0f1218 !important;
+  }
+}

@@ -1,0 +1,129 @@
+@use '../styles/variables' as *;
+
+.contact {
+  padding: $section-padding clamp(1.5rem, 4vw, 3rem);
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(26, 43, 74, 0.05), transparent 60%),
+    linear-gradient(
+      to right,
+      $bg-elevated 0%,
+      $bg-elevated 48%,
+      color-mix(in srgb, $bg-elevated 88%, transparent) 58%,
+      color-mix(in srgb, $bg-elevated 45%, transparent) 72%,
+      transparent 92%
+    );
+  border-top: 1px solid $border;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+
+  &__inner {
+    max-width: $max-width;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  &__cta-text {
+    margin-bottom: 1.5rem;
+
+    span {
+      color: $text-muted;
+    }
+  }
+
+  &__desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: $text-muted;
+    max-width: 46ch;
+    margin-bottom: 2rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  &__phone {
+    font-family: $font-mono;
+    font-size: 0.95rem;
+    color: $text-muted;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+
+  &__email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: $font-mono;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    padding: 0.9rem 1.5rem;
+    background: $accent;
+    color: #fff;
+    border-radius: 100px;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 28px $accent-glow;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(26, 43, 74, 0.22);
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid $border;
+    margin-bottom: 4rem;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid $border;
+    font-family: $font-display;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: $text;
+    transition: color 0.25s, padding-left 0.3s;
+
+    svg {
+      opacity: 0;
+      transform: translate(-8px, 8px);
+      transition: opacity 0.25s, transform 0.25s;
+      color: $accent-warm;
+    }
+
+    &:hover {
+      color: $accent;
+      padding-left: 1rem;
+
+      svg {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    color: $text-muted;
+    letter-spacing: 0.05em;
+  }
+}

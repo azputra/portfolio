@@ -1,0 +1,28 @@
+$bg: var(--color-bg);
+$bg-elevated: var(--color-bg-elevated);
+$surface: var(--color-surface);
+$border: var(--color-border);
+$text: var(--color-text);
+$text-muted: var(--color-text-muted);
+$accent: var(--color-accent);
+$accent-warm: var(--color-accent-warm);
+$accent-glow: var(--color-accent-glow);
+$font-display: 'Outfit', 'Syne', system-ui, sans-serif;
+$font-body: 'DM Sans', system-ui, sans-serif;
+$font-mono: 'JetBrains Mono', monospace;
+$section-padding: clamp(4rem, 10vw, 8rem);
+$max-width: 1200px;
+$nav-height: 72px;
+$radius-lg: 20px;
+$shadow-soft: var(--color-shadow-soft);
+
+@mixin section-canvas-bg($color: $bg) {
+  background: linear-gradient(
+    to right,
+    $color 0%,
+    $color 48%,
+    color-mix(in srgb, $color 88%, transparent) 58%,
+    color-mix(in srgb, $color 45%, transparent) 72%,
+    transparent 92%
+  );
+}

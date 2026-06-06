@@ -1,0 +1,61 @@
+@use '../styles/variables' as *;
+
+.services {
+  padding: $section-padding clamp(1.5rem, 4vw, 3rem);
+  @include section-canvas-bg($bg-elevated);
+  border-top: 1px solid $border;
+
+  &__inner {
+    max-width: $max-width;
+    margin: 0 auto;
+  }
+
+  &__header {
+    margin-bottom: 2.5rem;
+  }
+
+  &__grid {
+    display: grid;
+    gap: 1.25rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__card {
+    padding: 1.75rem;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-soft;
+    transition: border-color 0.25s, transform 0.25s;
+
+    &:hover {
+      border-color: rgba(26, 43, 74, 0.2);
+      transform: translateY(-3px);
+    }
+
+    h3 {
+      font-family: $font-display;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: $text-muted;
+    }
+  }
+
+  &__index {
+    display: block;
+    font-family: $font-mono;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: $accent-warm;
+    margin-bottom: 0.85rem;
+  }
+}
