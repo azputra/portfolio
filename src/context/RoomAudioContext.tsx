@@ -36,6 +36,7 @@ export function RoomAudioProvider({ children }: { children: ReactNode }) {
     audio.loop = true
     audio.volume = MUSIC_VOLUME
     audio.preload = 'auto'
+    audio.load()
     audioRef.current = audio
 
     return () => {
@@ -85,20 +86,49 @@ export function RoomAudioProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (isMusicMutedByUser()) return
 
-    void tryAutoplay()
+    const audio = audioRef.current
+    if (!audio) return
+
+    const attempt = () => {
+      void tryAutoplay()
+    }
+
+    attempt()
+
+    const onReady = () => attempt()
+    audio.addEventListener('canplaythrough', onReady)
+    audio.addEventListener('loadeddata', onReady)
+
+    let retries = 0
+    const retryTimer = window.setInterval(() => {
+      if (!audioRef.current?.paused || retries >= 24) {
+        window.clearInterval(retryTimer)
+        return
+      }
+      retries += 1
+      attempt()
+    }, 500)
 
     const unlock = () => {
       if (!isMusicMutedByUser() && audioRef.current?.paused) {
-        void tryAutoplay()
+        attempt()
       }
     }
 
-    window.addEventListener('pointerdown', unlock, { once: true })
-    window.addEventListener('keydown', unlock, { once: true })
+    window.addEventListener('pointerdown', unlock)
+    window.addEventListener('keydown', unlock)
+    window.addEventListener('touchstart', unlock, { passive: true })
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') unlock()
+    })
 
     return () => {
+      audio.removeEventListener('canplaythrough', onReady)
+      audio.removeEventListener('loadeddata', onReady)
+      window.clearInterval(retryTimer)
       window.removeEventListener('pointerdown', unlock)
       window.removeEventListener('keydown', unlock)
+      window.removeEventListener('touchstart', unlock)
     }
   }, [tryAutoplay])
 

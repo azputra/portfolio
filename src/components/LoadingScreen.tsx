@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { useRoomAudio } from '../context/RoomAudioContext'
 import { useTheme } from '../context/ThemeContext'
 import { LoadingScene } from './three/LoadingScene'
 import './LoadingScreen.scss'
@@ -23,6 +24,7 @@ type LoadingScreenProps = {
 
 export function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const { theme } = useTheme()
+  const { tryAutoplay } = useRoomAudio()
   const overlayRef = useRef<HTMLDivElement>(null)
   const leftCurtainRef = useRef<HTMLDivElement>(null)
   const rightCurtainRef = useRef<HTMLDivElement>(null)
@@ -72,6 +74,10 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
       .to(rightCurtainRef.current, { xPercent: 100, duration: 0.45, ease: 'power3.inOut' }, 0.3)
       .to(overlayRef.current, { opacity: 0, duration: 0.2 }, 0.65)
   }, [])
+
+  useEffect(() => {
+    void tryAutoplay()
+  }, [tryAutoplay])
 
   useEffect(() => {
     document.documentElement.dataset.theme = 'dark'
@@ -135,7 +141,11 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
   if (!visible) return null
 
   return (
-    <div className="loading" ref={overlayRef}>
+    <div
+      className="loading"
+      ref={overlayRef}
+      onPointerDown={() => void tryAutoplay()}
+    >
       <LoadingScene
         onAssetProgress={handleAssetProgress}
         onDancerReady={handleDancerReady}

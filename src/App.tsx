@@ -30,7 +30,7 @@ function App() {
       <SceneHoverProvider>
       <DeskInteractionProvider>
       <RoomAudioProvider>
-      <RoomAudioAutoplay ready={loaded} />
+      <RoomAudioAutoplay />
       <SceneRingCursor />
       {!loaded && <LoadingScreen onComplete={() => setLoaded(true)} />}
       <div className="grain" aria-hidden="true" />

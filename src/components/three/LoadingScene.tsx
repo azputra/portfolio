@@ -67,7 +67,7 @@ export function LoadingScene({ onAssetProgress, onDancerReady }: LoadingScenePro
       <Canvas
         shadows
         frameloop="always"
-        camera={{ position: [0, 0.92, 3.35], fov: 32, near: 0.1, far: 30 }}
+        camera={{ position: [0, 0.82, 3.55], fov: 32, near: 0.1, far: 30 }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: false }}
         onCreated={({ gl, scene }) => {

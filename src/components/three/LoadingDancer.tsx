@@ -9,7 +9,7 @@ export const DANCE_URL = `${MESHY}/Meshy_AI_Chibi_Gentleman_in_Wh_biped_Animatio
 export const CASUAL_URL = `${MESHY}/Meshy_AI_Chibi_Gentleman_in_Wh_biped_Animation_Casual_Walk_withSkin.glb`
 export const WALK_URL = `${MESHY}/Meshy_AI_Chibi_Gentleman_in_Wh_biped_Animation_Walking_withSkin.glb`
 
-const TARGET_HEIGHT = 1.35
+const TARGET_HEIGHT = 1.02
 const MODEL_SCALE = TARGET_HEIGHT / 1.7
 const SCENE_BG = '#0f1218'
 const FLOOR = '#141820'
@@ -41,8 +41,8 @@ function LoadingStage() {
   const { camera } = useThree()
 
   useLayoutEffect(() => {
-    camera.position.set(0, 0.92, 3.35)
-    camera.lookAt(0, 0.78, 0)
+    camera.position.set(0, 0.82, 3.55)
+    camera.lookAt(0, 0.62, 0)
     camera.updateProjectionMatrix()
   }, [camera])
 
