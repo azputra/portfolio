@@ -2,22 +2,23 @@
 
 .contact {
   padding: $section-padding clamp(1.5rem, 4vw, 3rem);
-  background: $bg-elevated;
+  @include section-canvas-bg($bg-elevated);
   border-top: 1px solid $border;
   min-height: 80vh;
   display: flex;
   align-items: center;
 
   @media (min-width: $bp-tablet) {
-    background:
+    background-color: transparent;
+    background-image:
       radial-gradient(ellipse 60% 50% at 20% 80%, rgba(26, 43, 74, 0.05), transparent 60%),
       linear-gradient(
         to right,
-        $bg-elevated 0%,
-        $bg-elevated 48%,
-        color-mix(in srgb, $bg-elevated 88%, transparent) 58%,
-        color-mix(in srgb, $bg-elevated 45%, transparent) 72%,
-        transparent 92%
+        var(--section-fade-left) 0%,
+        var(--section-fade-left) 56%,
+        var(--section-fade-mid) 68%,
+        var(--section-fade-soft) 82%,
+        transparent 96%
       );
   }
 

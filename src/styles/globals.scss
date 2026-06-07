@@ -30,6 +30,13 @@ html {
   --color-accent-glow: rgba(26, 43, 74, 0.14);
   --color-shadow-soft: 0 12px 40px rgba(20, 24, 32, 0.07);
   --color-nav-bg: rgba(243, 239, 232, 0.82);
+  --hero-reveal-panel: rgba(243, 239, 232, 0.94);
+  --hero-reveal-border: rgba(26, 43, 74, 0.14);
+  --hero-reveal-body: #3a4454;
+  --hero-reveal-shadow: 0 16px 48px rgba(20, 24, 32, 0.1);
+  --section-fade-left: rgba(232, 226, 216, 0.84);
+  --section-fade-mid: rgba(232, 226, 216, 0.68);
+  --section-fade-soft: rgba(232, 226, 216, 0.32);
 }
 
 html[data-theme='dark'] {
@@ -44,6 +51,13 @@ html[data-theme='dark'] {
   --color-accent-glow: rgba(126, 200, 255, 0.18);
   --color-shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.35);
   --color-nav-bg: rgba(15, 18, 24, 0.88);
+  --hero-reveal-panel: rgba(22, 27, 38, 0.9);
+  --hero-reveal-border: rgba(255, 255, 255, 0.1);
+  --hero-reveal-body: rgba(232, 226, 216, 0.78);
+  --hero-reveal-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  --section-fade-left: rgba(15, 18, 24, 0.84);
+  --section-fade-mid: rgba(15, 18, 24, 0.62);
+  --section-fade-soft: rgba(15, 18, 24, 0.3);
 }
 
 html.lenis {
@@ -92,6 +106,7 @@ body {
   z-index: 1;
   width: 100%;
   pointer-events: none;
+  isolation: isolate;
 
   a,
   button,
@@ -178,6 +193,18 @@ img {
 }
 
 @media (max-width: 767px) {
+  html {
+    --section-fade-left: rgba(232, 226, 216, 0.76);
+    --section-fade-mid: rgba(232, 226, 216, 0.52);
+    --section-fade-soft: rgba(232, 226, 216, 0.24);
+  }
+
+  html[data-theme='dark'] {
+    --section-fade-left: rgba(15, 18, 24, 0.76);
+    --section-fade-mid: rgba(15, 18, 24, 0.48);
+    --section-fade-soft: rgba(15, 18, 24, 0.22);
+  }
+
   .section-title {
     font-size: clamp(1.85rem, 8vw, 2.5rem);
   }

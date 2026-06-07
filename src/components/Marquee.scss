@@ -4,7 +4,7 @@
   overflow: hidden;
   border-top: 1px solid $border;
   border-bottom: 1px solid $border;
-  background: $bg-elevated;
+  @include section-canvas-bg($bg-elevated);
   padding: 1rem 0;
 
   &__track {
