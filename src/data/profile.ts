@@ -15,18 +15,18 @@ const yearsLabel = getYearsExperienceLabel()
 
 export const profile = {
   name: 'Ahmad Zuliansyah Putra',
-  role: 'Senior Full Stack Developer',
+  role: 'Senior Full Stack Engineer',
   roleDetail: 'Technical Lead · React.js · Node.js · TypeScript',
   tagline:
-    'Delivering SaaS products, enterprise applications & mission-critical systems for global teams.',
+    'Enterprise SaaS, mission-critical systems & scalable full-stack products for distributed global teams.',
   email: 'ahmadzp102@gmail.com',
   phone: '+62 813 8206 2349',
-  bio: `Senior Full Stack Developer with ${yearsLabel} years of experience delivering SaaS products, enterprise applications, and mission-critical systems across healthcare, education, logistics, industrial, and public sectors — since March ${CAREER_START.year}.
+  bio: `Senior Full Stack Engineer with 5+ years of experience delivering SaaS products, enterprise applications, and mission-critical systems across healthcare, education, logistics, industrial, mining, and public sectors.
 
-Experienced in leading cross-functional teams, recovering delayed projects, and delivering scalable software from planning through production. Strong in React.js, Node.js, TypeScript, API development, system architecture, and remote collaboration across Australia, the United States, Vietnam, and Indonesia.`,
+I specialize in React.js, Next.js, Node.js, and TypeScript — from system architecture and API design through production deployment. I have led cross-functional teams, recovered delayed projects, and delivered scalable software for clients across Australia, the United States, Vietnam, and Indonesia.`,
   location: 'Indonesia · Remote',
-  focus: 'SaaS · Enterprise · Technical Leadership',
-  availability: 'Open for remote & international roles',
+  focus: 'Healthcare · Mining · Public Sector · Enterprise SaaS',
+  availability: 'Open to Senior / Staff Engineer & Technical Lead roles · Remote APAC',
   socials: [
     { label: 'LinkedIn', url: 'https://linkedin.com/in/azputra' },
     { label: 'GitHub', url: 'https://github.com/azputra' },
@@ -45,63 +45,59 @@ Experienced in leading cross-functional teams, recovering delayed projects, and 
       field: 'Computer Engineering & Telecommunications',
     },
     {
-      school: 'Hacktiv8',
-      degree: 'Full Stack JavaScript Program',
-      field: '',
+      school: 'Hacktiv8 Indonesia',
+      degree: 'Full Stack JavaScript Immersive Program',
+      field: 'Certificate',
     },
   ],
   skills: [
-    'React',
-    'Next.js',
+    'React.js',
     'TypeScript',
-    'JavaScript',
     'Node.js',
-    'Express',
-    'REST API',
+    'Next.js',
+    'System Architecture',
+    'REST APIs',
     'PostgreSQL',
-    'MySQL',
+    'Technical Leadership',
+    'SaaS Development',
     'MongoDB',
-    'HTML5',
-    'CSS3',
-    'Highcharts',
-    'Google Maps',
-    'Git',
-    'Jira',
-    'Agile',
-    'SaaS',
-    'CMS',
+    'JavaScript',
+    'Express.js',
+    'Performance Optimization',
+    'Enterprise Applications',
+    'Agile/Scrum',
     'Three.js',
-    'Cursor AI',
-    'Claude',
+    'Git',
   ],
   stats: [
     { value: yearsLabel, label: 'Years experience' },
     { value: '4', label: 'Countries served' },
-    { value: '6+', label: 'Companies & clients' },
+    { value: '30', label: 'Days — project recovery' },
     { value: '100%', label: 'Remote-ready' },
   ],
   highlights: [
-    'Led a 5-member team to recover and deliver a stalled monitoring platform within 30 business days',
-    'Healthcare compliance platforms, hospital waste management & operational monitoring workflows',
-    'Drag-and-drop no-code builder & dyslexia-focused educational activity engine (Edwardsog)',
-    'Facial recognition attendance systems & enterprise apps across healthcare, logistics & public sector',
+    'Led a 5-person cross-functional team to recover and deliver a stalled government monitoring platform within 30 business days',
+    'Built healthcare compliance platforms supporting hospital operational monitoring and waste management workflows',
+    'Designed drag-and-drop content engines enabling non-technical users to create interactive educational experiences',
+    'Delivered facial recognition-based workforce management and attendance systems for enterprise clients',
+    'Developed no-code website builder and warehouse management modules for a U.S.-based SaaS platform',
   ],
   services: [
     {
       title: 'SaaS & Enterprise Applications',
-      desc: 'Scalable dashboards, CMS platforms, warehouse systems, and production-grade web applications.',
+      desc: 'Scalable dashboards, CMS platforms, warehouse systems, and production-grade web applications for mission-critical operations.',
     },
     {
       title: 'Technical Leadership',
-      desc: 'Cross-functional team leadership, project recovery, architecture decisions, and delivery planning.',
+      desc: 'Cross-functional team leadership, project recovery, architecture decisions, scope estimation, and delivery planning.',
     },
     {
       title: 'Full Stack Engineering',
-      desc: 'End-to-end features — React.js frontends, Node.js APIs, PostgreSQL/MySQL/MongoDB, and integrations.',
+      desc: 'End-to-end features — React.js / Next.js frontends, Node.js APIs, PostgreSQL / MongoDB, and third-party integrations.',
     },
     {
       title: 'System Architecture',
-      desc: 'API design, performance optimization, reusable component systems, and remote team collaboration.',
+      desc: 'API design, performance optimization, reusable component systems, and remote team collaboration across APAC.',
     },
   ],
   experience: [
@@ -111,7 +107,7 @@ Experienced in leading cross-functional teams, recovering delayed projects, and 
       company: 'Functional Logix Pty Ltd',
       location: 'Remote · Australia',
       summary:
-        'Enterprise software for the mining industry with React.js and TypeScript — scalable frontend architecture and reusable component systems.',
+        'Enterprise-grade software for the mining industry using React.js and TypeScript — scalable frontend architecture, reusable component systems, and production-ready delivery with distributed teams.',
     },
     {
       period: 'Oct 2024 — Present',
@@ -119,15 +115,15 @@ Experienced in leading cross-functional teams, recovering delayed projects, and 
       company: 'Kandara Digital Kreatif',
       location: 'Remote · Indonesia',
       summary:
-        'Enterprise applications with large-scale operational workflows — end-to-end React.js and Node.js features, technical planning, and production improvements.',
+        'Enterprise applications with large-scale operational workflows — end-to-end React.js and Node.js features, technical planning, solution design, and production improvements.',
     },
     {
-      period: '2023 — Present',
+      period: 'Jan 2023 — Present',
       role: 'Independent Technical Consultant',
       company: 'Global Remote Clients',
       location: 'Remote · International',
       summary:
-        'Lead software projects across healthcare, education, enterprise, and public-sector domains — requirements through deployment and post-launch support.',
+        'Lead software projects across healthcare, education, enterprise, and public-sector domains — requirements through deployment, post-launch support, and distributed stakeholder coordination.',
     },
     {
       period: 'Oct 2023 — Jan 2026',
@@ -135,7 +131,7 @@ Experienced in leading cross-functional teams, recovering delayed projects, and 
       company: 'Confidential U.S. Client',
       location: 'Remote · United States',
       summary:
-        'No-code website builder with drag-and-drop creation, warehouse management modules, reusable frontend architecture, and third-party integrations.',
+        'No-code website builder with drag-and-drop page creation, warehouse management modules, reusable frontend architecture, backend services, and third-party integrations for a U.S. SaaS platform.',
     },
     {
       period: 'Sep 2023 — Feb 2024',
@@ -143,7 +139,7 @@ Experienced in leading cross-functional teams, recovering delayed projects, and 
       company: 'Wise Accelerate',
       location: 'Remote · Vietnam',
       summary:
-        'Digital recruitment platform — responsive UI, reusable components, API integration, and frontend performance optimization.',
+        'Digital recruitment platform — reusable UI components, responsive experiences, REST API integration, and frontend performance optimization with a distributed remote team.',
     },
     {
       period: 'Mar 2020 — Jul 2023',
@@ -151,7 +147,7 @@ Experienced in leading cross-functional teams, recovering delayed projects, and 
       company: 'Immobi Solusi Prima',
       location: 'Jakarta, Indonesia',
       summary:
-        'Enterprise web applications with React & Node.js — RESTful APIs, Highcharts dashboards, Google Maps, CMS systems, and Agile delivery.',
+        'Enterprise web applications from concept to production — RESTful APIs, Highcharts dashboards, Google Maps integrations, CMS systems, and Agile/Scrum delivery.',
     },
   ],
 }

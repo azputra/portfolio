@@ -1,7 +1,7 @@
 import { profile } from '../data/profile'
 import './Marquee.scss'
 
-const items = [...profile.skills, 'Technical Leadership', 'Remote Teams']
+const items = [...profile.skills, 'Remote APAC', 'Mission-Critical Systems']
 
 export function Marquee() {
   const track = [...items, ...items]

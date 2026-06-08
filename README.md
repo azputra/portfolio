@@ -1,8 +1,14 @@
 # Portfolio — Ahmad Zuliansyah Putra
 
-Portfolio interaktif dengan React, Three.js, GSAP, dan Lenis — terinspirasi dari [david-hckh.com](https://david-hckh.com/).
+Interactive portfolio for **Senior Full Stack Engineer** positioning — React, Three.js, GSAP, and Lenis.
 
-## Menjalankan secara lokal
+**Live:** [portfolio-liard-psi-e27qzymkdy.vercel.app](https://portfolio-liard-psi-e27qzymkdy.vercel.app/)
+
+## About
+
+Senior Full Stack Engineer with 5+ years delivering SaaS products, enterprise applications, and mission-critical systems across healthcare, mining, education, logistics, and public sectors — for clients in Australia, the United States, Vietnam, and Indonesia.
+
+## Run locally
 
 ```bash
 cd portfolio
@@ -10,7 +16,7 @@ npm install
 npm run dev
 ```
 
-Buka **http://localhost:5173** di browser.
+Open **http://localhost:5173** in your browser.
 
 ## Tech Stack
 
@@ -20,14 +26,19 @@ Buka **http://localhost:5173** di browser.
 - Lenis (smooth scroll)
 - SCSS
 
-## Struktur
+## Structure
 
-- `src/data/` — profil & daftar project
-- `src/components/three/` — scene 3D & karakter
-- `src/components/` — section halaman
+- `src/data/profile.ts` — bio, experience, skills, highlights
+- `src/data/projects.ts` — featured project case studies
+- `src/components/three/` — 3D scene & workspace
+- `src/components/` — page sections
 
-## Kustomisasi
+## Customize
 
-Edit `src/data/profile.ts` dan `src/data/projects.ts` untuk mengubah konten.
+Edit `src/data/profile.ts` and `src/data/projects.ts` to update content.
 
-Untuk mengganti karakter 3D, ubah URL model di `src/components/three/Character.tsx` (format GLTF/GLB dengan animasi idle).
+## Connect
+
+- [LinkedIn](https://linkedin.com/in/azputra)
+- [GitHub](https://github.com/azputra)
+- [Email](mailto:ahmadzp102@gmail.com)

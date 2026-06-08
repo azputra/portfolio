@@ -54,8 +54,8 @@ export function Contact() {
         </h2>
 
         <p className="contact__desc">
-          Looking for a senior full stack developer or technical lead for SaaS, enterprise,
-          or mission-critical products? Let&apos;s talk.
+          Open to Senior / Staff Engineer and Technical Lead opportunities across APAC.
+          SaaS, enterprise, mining, healthcare, or mission-critical products — let&apos;s talk.
         </p>
 
         <div className="contact__actions">
